@@ -16,9 +16,9 @@ const { config } = require("./config/index");
 const app = express();
 
 // Middlewares usage
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(helmet());
 app.disable("x-powered-by");
 

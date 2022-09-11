@@ -16,8 +16,13 @@ class AuthApi {
     }
 
     routes(){
-        this.router.get("/", this.controller.auth);
-        this.router.get("/callback", this.controller.signIn);
+        this.router.get("/", (...args) => {
+            return this.controller.auth(...args);
+        });
+
+        this.router.get("/callback", (...args) => {
+            return this.controller.getToken(...args);
+        });
     }
 }
 
