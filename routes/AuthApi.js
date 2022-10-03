@@ -2,28 +2,16 @@
 const express = require("express");
 
 // Modules
-const AuthController = require("../controllers/AuthController");
+const { auth, getToken, refreshToken } = require("../controllers/authController");
 
 // Routes
-class AuthApi {
-    router;
-    controller;
+function authApi(app){
+    const router = express.Router();
+    app.use("/api/auth", router);
 
-    constructor(app){
-        this.router = express.Router();
-        this.controller = new AuthController();
-        app.use("/api/auth", this.router);
-    }
-
-    routes(){
-        this.router.get("/", (...args) => {
-            return this.controller.auth(...args);
-        });
-
-        this.router.get("/callback", (...args) => {
-            return this.controller.getToken(...args);
-        });
-    }
+    router.get("/", auth);
+    router.get("/callback", getToken);
+    router.get("/refresh-token", refreshToken);
 }
 
-module.exports = AuthApi;
+module.exports = authApi;

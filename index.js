@@ -6,7 +6,8 @@ const helmet = require("helmet");
 const express = require("express");
 
 // Modules
-const AuthApi = require("./routes/AuthApi");
+const authApi = require("./routes/authApi");
+const rooms = require("./routes/rooms");
 const notFoundHandler = require("./utils/middlewares/notFoundHandler");
 
 // Config
@@ -23,14 +24,13 @@ app.use(helmet());
 app.disable("x-powered-by");
 
 // Routes
-const authApi = new AuthApi(app);
-authApi.routes();
-
+authApi(app);
+rooms(app);
 
 // App middlewares
 app.use(notFoundHandler);
 
 // Start server
 app.listen(config.port, () => {
-    console.log(`Server listening on http://localhost:${config.port}`);
+    console.log(`Server listening on http://localhost:${config.port}/api`);
 })
