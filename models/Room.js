@@ -25,6 +25,10 @@ const Room = Schema({
     genres_seed: {
         type: [String],
         required: false
+    },
+    access_url: {
+        type: String,
+        required: true
     }
 });
 

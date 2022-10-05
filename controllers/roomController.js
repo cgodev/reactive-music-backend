@@ -3,9 +3,12 @@ const Room = require("../models/Room");
 const { success, error } = require("../utils/responses/responses");
 
 async function saveRoom(req, res){
-    const roomData = req.body;
+    if(!req.cookies.token){
+        return error(req, res, 400, "No token found");
+    }
 
     try {
+        const roomData = req.body;
         const roomExists = await Room.findOne({ id_playlist: req.body.id_playlist });
 
         if(roomExists){
