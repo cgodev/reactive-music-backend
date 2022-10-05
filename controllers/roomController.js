@@ -6,7 +6,7 @@ async function saveRoom(req, res){
     const roomData = req.body;
 
     try {
-        const roomExists = Room.findOne({ id_playlist });
+        const roomExists = await Room.findOne({ id_playlist: req.body.id_playlist });
 
         if(roomExists){
             return error(req, res, 400, "Room already exists");
@@ -17,8 +17,9 @@ async function saveRoom(req, res){
 
         return success(req, res, 201, "Room created successfully");
 
-    } catch (error) {
-        return error(req, res, 400, "There was an error while creating the room");
+    } catch (e) {
+        console.log(e.message);
+        return error(req, res, 400, "There was an error while creating the room, ", e.message);
     }
 }
 

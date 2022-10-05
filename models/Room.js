@@ -10,7 +10,7 @@ const Room = Schema({
         type: String,
         required: false
     },
-    idPlaylist: {
+    id_playlist: {
         type: String,
         required: true
     },
@@ -18,14 +18,14 @@ const Room = Schema({
         type: String,
         required: true
     },
-    refreshToken: {
+    refresh_token: {
         type: String,
         required: true
     },
-    genresSeed: {
+    genres_seed: {
         type: [String],
         required: false
     }
 });
 
-module.exports = model("Room", Room);
+module.exports = model("Rooms", Room);

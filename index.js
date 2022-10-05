@@ -5,6 +5,9 @@ const helmet = require("helmet");
 // Express
 const express = require("express");
 
+// Database
+const { dbConnection } = require("./database/index");
+
 // Modules
 const authApi = require("./routes/authApi");
 const rooms = require("./routes/rooms");
@@ -19,9 +22,12 @@ const app = express();
 // Middlewares usage
 app.use(cookieParser());
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
 app.disable("x-powered-by");
+
+// Database
+dbConnection();
 
 // Routes
 authApi(app);

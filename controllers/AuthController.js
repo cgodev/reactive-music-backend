@@ -5,6 +5,7 @@ const qs = require("qs");
 
 // Modules
 const { success, error } = require("../utils/responses/responses");
+const Room = require("../models/Room");
 
 // Config
 const { config } = require("../config/index");
@@ -55,6 +56,7 @@ async function getToken(req, res){
 }
 
 async function refreshToken(req, res){
+    const { room_id, uid } = req.query;
     const refreshToken = req.cookies.refresh_token;
     const auth64 = Buffer.from(config.client_id + ":" + config.client_secret).toString("base64");
 
@@ -64,6 +66,10 @@ async function refreshToken(req, res){
     }
 
     try {
+        if(!room_id || !uid){
+            return error(req, res, 400, "room_id and uid are required");
+        }
+
         const { data, status } = await axios({
             method: "POST",
             url: config.spotifyAccountsUrl+"/api/token",
@@ -74,13 +80,18 @@ async function refreshToken(req, res){
             }
         });
 
-        if(data || status == 200){
-            res.cookie("token", data.access_token, { maxAge: 1 * data.expires_in * 1000 });
-        } else {
+        if(!data || status != 200){
             return error(req, res, 400, "Cannot get a refreshed token");
         }
-
-        return success(req, res, 200, null, data);
+        
+        const updatedRoom = await Room.findOneAndUpdate(
+            { $and: [ { _id: room_id }, { uid } ] }, 
+            { token: data.access_token },
+            { new: true, fields: { "__v": 0 } }
+        );
+            
+        res.cookie("token", data.access_token, { maxAge: 1 * data.expires_in * 1000 });
+        return success(req, res, 200, null, updatedRoom);
 
     } catch (e) {
         return error(req, res, 400, "Cannot get a refreshed token");

@@ -8,7 +8,8 @@ function rooms(app){
     const router = express.Router();
     app.use("/api/rooms", router);
 
-    router.get("/", saveRoom);
+    //rooms/get-all or index route "/"
+    router.post("/save", saveRoom);
 }
 
 module.exports = rooms;
