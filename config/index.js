@@ -7,6 +7,7 @@ const config = {
     spotifyAccountsScopes: process.env.SPOTIFY_ACCOUNTS_SCOPES,
     databaseUrl: process.env.DATABASE_URL,
     redirect_url: process.env.REDIRECT_URL,
+    redirect_client_url: process.env.REDIRECT_CLIENT_URL,
     port: process.env.PORT
 }
 
