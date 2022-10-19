@@ -14,11 +14,11 @@ function auth(req, res){
     const params = new URLSearchParams({
         client_id: config.client_id,
         redirect_uri: config.redirect_url,
-        scopes: config.spotifyAccountsScopes,
+        scope: config.spotifyAccountsScopes,
         response_type: "code"
     });
     
-    res.redirect(config.spotifyAccountsUrl+"/authorize?"+params);
+    return res.redirect(config.spotifyAccountsUrl+"/authorize?"+params);
 }
 
 async function getToken(req, res){
@@ -48,10 +48,10 @@ async function getToken(req, res){
             return error(req, res, 400, "Cannot get a token");
         }
 
-        return success(req, res, 200, null, data);
+        return res.redirect(config.redirect_client_url);
 
     } catch (e) {
-        return error(req, res, 400, "Cannot get a token");
+        return res.send("Cannot get a token, please try again");
     }
 }
 

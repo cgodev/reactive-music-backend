@@ -1,6 +1,7 @@
 // Packages
 const cookieParser = require("cookie-parser");
 const helmet = require("helmet");
+const cors = require("cors");
 
 // Express
 const express = require("express");
@@ -21,6 +22,7 @@ const { config } = require("./config/index");
 const app = express();
 
 // Middlewares usage
+app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
