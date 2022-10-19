@@ -2,7 +2,7 @@
 const express = require("express");
 
 // Modules
-const { saveRoom } = require("../controllers/roomController");
+const { saveRoom, getRooms, getRoomById, updateRoom } = require("../controllers/roomController");
 
 function rooms(app){
     const router = express.Router();
@@ -10,6 +10,9 @@ function rooms(app){
 
     //rooms/get-all or index route "/"
     router.post("/save", saveRoom);
+    router.get("/", getRooms);
+    router.get("/:id", getRoomById);
+    router.put("/:id", updateRoom);
 }
 
 module.exports = rooms;

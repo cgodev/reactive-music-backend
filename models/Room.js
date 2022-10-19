@@ -1,7 +1,7 @@
 // Packages
 const { model, Schema } = require("mongoose");
 
-const Room = Schema({
+const RoomSchema = Schema({
     uid: {
         type: String,
         required: true
@@ -32,4 +32,4 @@ const Room = Schema({
     }
 });
 
-module.exports = model("Rooms", Room);
+module.exports = model("Rooms", RoomSchema);
