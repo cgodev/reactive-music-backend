@@ -9,8 +9,8 @@ function rooms(app){
     app.use("/api/rooms", router);
 
     //rooms/get-all or index route "/"
-    router.post("/save", saveRoom);
     router.get("/", getRooms);
+    router.post("/save", saveRoom);
     router.get("/:id", getRoomById);
     router.put("/:id", updateRoom);
 }
