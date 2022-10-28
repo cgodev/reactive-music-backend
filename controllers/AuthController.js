@@ -67,7 +67,7 @@ async function refreshToken(req, res){
     }
 
     try {
-        if((user_role != "HOST_ROLE") && (!room_id || !uid)){
+        if((user_role != "HOST_ROLE") && (room_id == null || uid == null)){
             return error(req, res, 400, "room_id and uid are required");
         }
 

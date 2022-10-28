@@ -16,6 +16,7 @@ async function saveRoom(req, res) {
         }
 
         const room = new Room(roomData);
+        room.access_url = roomData.access_url + "/" + room._id;
         await room.save();
 
         return success(req, res, 201, "Room created successfully", room);
