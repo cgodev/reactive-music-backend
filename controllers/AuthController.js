@@ -56,7 +56,8 @@ async function getToken(req, res){
 }
 
 async function refreshToken(req, res){
-    const { room_id, uid } = req.query;
+    let updatedRoom = {};
+    const { room_id, uid, user_role } = req.query;
     const refreshToken = req.cookies.refresh_token;
     const auth64 = Buffer.from(config.client_id + ":" + config.client_secret).toString("base64");
 
@@ -66,7 +67,7 @@ async function refreshToken(req, res){
     }
 
     try {
-        if(!room_id || !uid){
+        if((user_role != "HOST_ROLE") && (room_id == null || uid == null)){
             return error(req, res, 400, "room_id and uid are required");
         }
 
@@ -83,16 +84,18 @@ async function refreshToken(req, res){
         if(!data || status != 200){
             return error(req, res, 400, "Cannot get a refreshed token");
         }
-        
-        const updatedRoom = await Room.findOneAndUpdate(
-            { $and: [ { _id: room_id }, { uid } ] }, 
-            { token: data.access_token },
-            { new: true, fields: { "__v": 0 } }
-        );
-            
-        res.cookie("token", data.access_token, { maxAge: 1 * data.expires_in * 1000 });
-        return success(req, res, 200, null, updatedRoom);
 
+        res.cookie("token", data.access_token, { maxAge: 1 * data.expires_in * 1000 });
+
+        if(user_role != "HOST_ROLE"){
+            updatedRoom = await Room.findOneAndUpdate(
+                { $and: [ { _id: room_id }, { uid } ] }, 
+                { token: data.access_token },
+                { new: true, fields: { "__v": 0 } }
+            );
+        }
+
+        return success(req, res, 200, "Token refreshed successfully", updatedRoom);         
     } catch (e) {
         return error(req, res, 400, "Cannot get a refreshed token");
     }
