@@ -2,7 +2,7 @@ const { Schema, model } = require('mongoose');
 
 const UserSchema = Schema({
 
-    nombre: {
+    name: {
         type: String,
         required: true,
     },
@@ -26,9 +26,9 @@ const UserSchema = Schema({
 
 });
 
-/* Modificar nombres y propiedades del objeto que se devuelve */
+/* Customize response from internal mongoose schema in order to handle property names and realize operations. */
 
-UsuarioSchema.method('toJSON', function(){
+UserSchema.method('toJSON', function(){
     const { __v, _id, password, ...object } = this.toObject();
 
     object.uid = _id;

@@ -2,12 +2,13 @@ const { Schema, model } = require('mongoose');
 
 const UserCredentialSchema = Schema({
 
-    public_key: {
+    client_id: {
         type: String,
         required: true,
     },
-    private_key: {
-        type: String
+    client_secret: {
+        type: String,
+        required: true
     },
     /* Establecer una referencia entre 2 documentos */
     user: {
@@ -20,7 +21,7 @@ const UserCredentialSchema = Schema({
 
 /* Modificar nombres y propiedades del objeto que se devuelve */
 
-HospitalSchema.method('toJSON', function(){
+UserCredentialSchema.method('toJSON', function(){
     const { __v, ...object } = this.toObject();
     return object;
 })

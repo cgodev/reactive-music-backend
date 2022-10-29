@@ -12,6 +12,8 @@ const { dbConnection } = require("./database/index");
 // Modules
 const authApi = require("./routes/authApi");
 const rooms = require("./routes/rooms");
+const users = require("./routes/users");
+const credentials = require("./routes/userCredentials")
 const genresSeeds = require("./routes/genresSeeds");
 const notFoundHandler = require("./utils/middlewares/notFoundHandler");
 
@@ -36,6 +38,8 @@ dbConnection();
 authApi(app);
 rooms(app);
 genresSeeds(app);
+users(app);
+credentials(app);
 
 
 // App middlewares
