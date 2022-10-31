@@ -10,9 +10,16 @@ const Room = require("../models/Room");
 // Config
 const { config } = require("../config/index");
 
-function auth(req, res){
+// Models
+const UserCredential = require('../models/UserCredential');
+
+async function auth(req, res){
+    const { client_secret, client_id } = req.params;
+    process.env.client_secret = client_secret;
+    process.env.client_id = client_id;
+
     const params = new URLSearchParams({
-        client_id: config.client_id,
+        client_id: client_id,
         redirect_uri: config.redirect_url,
         scope: config.spotifyAccountsScopes,
         response_type: "code"
@@ -22,8 +29,10 @@ function auth(req, res){
 }
 
 async function getToken(req, res){
+    const { client_secret, client_id } = process.env;
+
     const code = req.query.code || "";
-    const auth64 = Buffer.from(config.client_id + ":" + config.client_secret).toString("base64");
+    const auth64 = Buffer.from(client_id + ":" + client_secret).toString("base64");
     const body = {
         grant_type: "authorization_code",
         redirect_uri: config.redirect_url,

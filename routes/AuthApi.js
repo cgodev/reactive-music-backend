@@ -9,7 +9,7 @@ function authApi(app){
     const router = express.Router();
     app.use("/api/auth", router);
 
-    router.get("/", auth);
+    router.get("/:client_secret/:client_id", auth);
     router.get("/callback", getToken);
     router.get("/refresh-token", refreshToken);
 }
