@@ -2,6 +2,7 @@
 const { Buffer } = require("buffer");
 const axios = require("axios").default;
 const qs = require("qs");
+const bcrypt = require("bcryptjs")
 
 // Modules
 const { success, error } = require("../utils/responses/responses");
@@ -9,6 +10,55 @@ const Room = require("../models/Room");
 
 // Config
 const { config } = require("../config/index");
+
+//Models
+const Usuario = require("../models/User.js")
+
+//Helpers
+const { JWTGenerator } = require("../helpers/jwt")
+
+async function login(req, res){
+
+    const { email, password } = req.body;
+
+    try {
+
+        /* Verify email */
+        const usuarioDB = await Usuario.findOne({ email });
+        if (!usuarioDB) {
+            return res.status(404).json({
+                ok: false,
+                message: `Not possible validate this user.`
+            })
+        }
+
+        /* Verify password */
+        const validPassword = bcrypt.compareSync(password, usuarioDB.password);
+        if (!validPassword) {
+            return res.status(400).json({
+                ok: false,
+                message: `Invalid password`
+            })
+        }
+
+        /* JWT */
+
+        const token = await JWTGenerator(usuarioDB.id);
+
+
+        return res.status(200).json({
+            ok: true,
+            token
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            ok: true,
+            message: `Error validating user`
+        })
+    }
+
+}
 
 function auth(req, res){
     const params = new URLSearchParams({
@@ -104,5 +154,6 @@ async function refreshToken(req, res){
 module.exports = {
     auth,
     getToken,
-    refreshToken
+    refreshToken,
+    login
 };
