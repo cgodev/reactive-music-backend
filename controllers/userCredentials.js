@@ -3,7 +3,7 @@ const User = require('../models/User');
 const UserCredential = require('../models/UserCredential');
 
 const getCredential = async (req, res = response) => {
-    const uid = req.params.id;
+    const uid = req.uid;
 
     try {
         const credentials = await UserCredential.findOne({ user: uid });

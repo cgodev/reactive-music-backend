@@ -61,12 +61,11 @@ async function login(req, res){
 
 }
 
-
-
 async function auth(req, res){
     const { client_secret, client_id } = req.params;
     process.env.client_secret = client_secret;
     process.env.client_id = client_id;
+    
     const params = new URLSearchParams({
         client_id: client_id,
         redirect_uri: config.redirect_url,

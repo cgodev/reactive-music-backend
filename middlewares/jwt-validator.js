@@ -1,7 +1,6 @@
 const jwt = require("jsonwebtoken");
 
 const validateJWT = (req, res, next) => {
-
     /* Read token */
     const token = req.header('x-token');
 
