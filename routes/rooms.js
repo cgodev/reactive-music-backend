@@ -3,6 +3,7 @@ const express = require("express");
 
 // Modules
 const { saveRoom, getRooms, getRoomById, updateRoom } = require("../controllers/roomController");
+const { validateJWT } = require("../middlewares/jwt-validator");
 
 function rooms(app){
     const router = express.Router();
@@ -10,9 +11,9 @@ function rooms(app){
 
     //rooms/get-all or index route "/"
     router.get("/", getRooms);
-    router.post("/save", saveRoom);
+    router.post("/save", validateJWT, saveRoom);
+    router.put("/:id", validateJWT, updateRoom);
     router.get("/:id", getRoomById);
-    router.put("/:id", updateRoom);
 }
 
 module.exports = rooms;

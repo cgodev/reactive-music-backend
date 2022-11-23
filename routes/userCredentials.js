@@ -15,9 +15,9 @@ function credentials(app) {
 
     router.get('/', validateJWT, getCredential);
 
-    router.post('/', /* Add validators array here!! */createCredentials);
+    router.post('/', validateJWT, createCredentials);
 
-    router.put('/:id'/* Add validators array here!! */, updateCredentials);
+    router.put('/:id', validateJWT, updateCredentials);
 
 }
 
