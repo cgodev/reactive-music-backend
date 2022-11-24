@@ -6,7 +6,7 @@ const { Router } = require('express');
 const { getUsers, createUser, updateUser, deleteUser } = require('../controllers/users');
 const { check } = require('express-validator')
 const { validateFields } = require('../middlewares/field-validators');
-const { validarJWT } = require('../middlewares/jwt-validator');
+const { validateJWT } = require('../middlewares/jwt-validator');
 
 function users(app) {
     
@@ -15,29 +15,22 @@ function users(app) {
 
     router.get('/', getUsers);
 
-    router.post('/', /* [
-            check('name', 'Param name is required').not().isEmpty(),
-            check('password', 'Param password is required').not().isEmpty(),
-            check('email', 'Param email is required').isEmail(),
+    router.post('/', [
+        check('name', 'Name is required').not().isEmpty(),
+        check('password', 'Password is required').not().isEmpty(),
+        check('email', 'Email is required').isEmail(),
         validateFields
-    ],  */createUser);
+    ], createUser);
 
     router.put('/:id', [
-        /* Middlewares */
-        /* validarJWT, */
-        /* check('name', 'Param name is required').not().isEmpty(),
-        check('role', 'Param role is required').not().isEmpty(),
-        check('email', 'Param email is required').isEmail(),
-        validateFields, */
+        validateJWT,
+        check('name', 'Name is required').not().isEmpty(),
+        check('role', 'Role is required').not().isEmpty(),
+        check('email', 'Email is required').isEmail(),
+        // validateFields,
     ], updateUser);
 
-    router.delete('/:id', [
-        /* Middlewares */
-        /* validarJWT */
-    ], deleteUser);
-
+    router.delete('/:id', validateJWT, deleteUser);
 }
-
-
 
 module.exports = users;
