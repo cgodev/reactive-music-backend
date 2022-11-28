@@ -6,7 +6,10 @@ const getCredential = async (req, res = response) => {
     const uid = req.body.user;
 
     try {
-        const credentials = await UserCredential.findOne({ user: uid });
+        const credentials = await UserCredential.findOne({ user: uid }, {
+            client_id: 1,
+            client_secret: 1,
+        });
 
         if (!credentials) {
             return res.status(400).json({
@@ -67,7 +70,7 @@ const createCredentials = async (req, res = response) => {
 
 const updateCredentials = async (req, res = response) => {
     const uid = req.params.id;
-
+    console.log(uid);
     //Verify that credentials exists
     const credentials = await UserCredential.findById(uid)
     if (!credentials) {

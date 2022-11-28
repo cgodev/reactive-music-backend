@@ -115,6 +115,7 @@ async function getToken(req, res){
 async function refreshToken(req, res){
     let updatedRoom = {};
     const { room_id, uid, user_role } = req.query;
+    console.log(res.params);
     const refreshToken = req.cookies.refresh_token;
     const auth64 = Buffer.from(config.client_id + ":" + config.client_secret).toString("base64");
 
