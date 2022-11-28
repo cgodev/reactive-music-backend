@@ -3,7 +3,7 @@ const User = require('../models/User');
 const UserCredential = require('../models/UserCredential');
 
 const getCredential = async (req, res = response) => {
-    const uid = req.uid;
+    const uid = req.body.user;
 
     try {
         const credentials = await UserCredential.findOne({ user: uid });
@@ -31,8 +31,9 @@ const getCredential = async (req, res = response) => {
 
 const createCredentials = async (req, res = response) => {
 
-    console.log(`Input`);
     const { client_id, client_secret, user } = req.body;
+
+    console.log(user);
 
     //verify user exist
     const userDB = await User.findById(user);

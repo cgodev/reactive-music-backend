@@ -7,7 +7,7 @@ function success(req, res, status, message, data){
 
 function error(req, res, status, error, data){
     return res.status(status || 500).send({
-        message: error || "",
+        msg: error || "",
         body: data || [],
     });
 }
