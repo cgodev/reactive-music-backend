@@ -6,10 +6,7 @@ const getCredential = async (req, res = response) => {
     const uid = req.body.user;
 
     try {
-        const credentials = await UserCredential.findOne({ user: uid }, {
-            client_id: 1,
-            client_secret: 1,
-        });
+        const credentials = await UserCredential.findOne({ user: uid });
 
         if (!credentials) {
             return res.status(400).json({

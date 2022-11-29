@@ -3,7 +3,8 @@ const { model, Schema } = require("mongoose");
 
 const RoomSchema = Schema({
     uid: {
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: 'User',
         required: true
     },
     name: {
@@ -13,6 +14,10 @@ const RoomSchema = Schema({
     id_playlist: {
         type: String,
         required: true
+    },
+    spotify_uid:{
+        type: String,
+        required: false
     },
     token: {
         type: String,

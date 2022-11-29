@@ -115,16 +115,17 @@ async function getToken(req, res){
 async function refreshToken(req, res){
     let updatedRoom = {};
     const { room_id, uid, user_role } = req.query;
-    console.log(res.params);
     const refreshToken = req.cookies.refresh_token;
-    const auth64 = Buffer.from(config.client_id + ":" + config.client_secret).toString("base64");
-
+    
     const body = {
         grant_type: "refresh_token",
         refresh_token: refreshToken
     }
 
     try {
+        const { client_id, client_secret } = await getCredentials(uid);
+        const auth64 = Buffer.from(client_id + ":" + client_secret).toString("base64");
+
         if((user_role != "HOST_ROLE") && (room_id == null || uid == null)){
             return error(req, res, 400, "room_id and uid are required");
         }
@@ -156,6 +157,18 @@ async function refreshToken(req, res){
         return success(req, res, 200, "Token refreshed successfully", updatedRoom);         
     } catch (e) {
         return error(req, res, 400, "Cannot get a refreshed token");
+    }
+}
+
+async function getCredentials(uid){
+    try {
+        const credentials = await UserCredential.findOne({ user: uid }, { _id: 0 });
+        if(!credentials) return false;
+        return credentials;
+
+    } catch (error) {
+        console.log(error);
+        return false;
     }
 }
 

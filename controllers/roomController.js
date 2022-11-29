@@ -16,6 +16,7 @@ async function saveRoom(req, res) {
         }
 
         const room = new Room(roomData);
+        room.uid = req.body.user;
         room.access_url = roomData.access_url + "/" + room._id;
         await room.save();
 
@@ -23,7 +24,7 @@ async function saveRoom(req, res) {
 
     } catch (e) {
         console.log(e.message);
-        return error(req, res, 400, `There was an error while creating the room, ${e.message}`, null);
+        return error(req, res, 400, "There was an error while creating the room, please try again", null);
     }
 }
 
