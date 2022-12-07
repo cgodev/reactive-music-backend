@@ -162,7 +162,7 @@ async function refreshToken(req, res){
 
         return success(req, res, 200, "Token refreshed successfully", updatedRoom);         
     } catch (e) {
-        console.log('Error no data catch', e);
+        console.log('Error no data catch');
         return error(req, res, 400, "Cannot get a refreshed token");
     }
 }
