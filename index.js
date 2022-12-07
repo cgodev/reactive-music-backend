@@ -23,6 +23,12 @@ const { config } = require("./config/index");
 // Initialize app
 const app = express();
 
+app.use(express.static('public'))
+
+app.get('/', (req, res) => {
+    res.sendFile('index.html', {root: path.join(__dirname, 'public')});
+})
+
 // Middlewares usage
 app.use(cors({
     credentials: true,
@@ -49,8 +55,8 @@ credentials(app);
 app.use(notFoundHandler);
 
 // Start server
-app.listen(config.port, () => {
-    console.log(`Server listening on http://localhost:${config.port}/api`);
-})
+app.listen(config.port || 5000);
+
+
 
 module.exports = app;
