@@ -116,6 +116,7 @@ async function refreshToken(req, res){
     let updatedRoom = {};
     const { room_id, uid, user_role } = req.query;
     const refreshToken = req.cookies.refresh_token;
+    console.log(refreshToken);
     
     const body = {
         grant_type: "refresh_token",
