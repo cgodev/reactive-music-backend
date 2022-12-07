@@ -124,7 +124,9 @@ async function refreshToken(req, res){
 
     try {
         const { client_id, client_secret } = await getCredentials(uid);
+        console.log({client_id, client_secret});
         const auth64 = Buffer.from(client_id + ":" + client_secret).toString("base64");
+        console.log(auth64);
 
         if((user_role != "HOST_ROLE") && (room_id == null || uid == null)){
             return error(req, res, 400, "room_id and uid are required");
@@ -141,6 +143,7 @@ async function refreshToken(req, res){
         });
 
         if(!data || status != 200){
+            console.log('Error no data');
             return error(req, res, 400, "Cannot get a refreshed token");
         }
 
@@ -156,6 +159,7 @@ async function refreshToken(req, res){
 
         return success(req, res, 200, "Token refreshed successfully", updatedRoom);         
     } catch (e) {
+        console.log('Error no data catch');
         return error(req, res, 400, "Cannot get a refreshed token");
     }
 }
