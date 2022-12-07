@@ -52,3 +52,5 @@ app.use(notFoundHandler);
 app.listen(config.port, () => {
     console.log(`Server listening on http://localhost:${config.port}/api`);
 })
+
+module.exports = app;
