@@ -2,7 +2,7 @@
 const express = require("express");
 
 // Modules
-const { login, auth, getToken, refreshToken } = require("../controllers/authController");
+const { login, auth, getToken, refreshToken } = require("../controllers/AuthController");
 
 // Routes
 function authApi(app){
