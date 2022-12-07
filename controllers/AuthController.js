@@ -142,6 +142,8 @@ async function refreshToken(req, res){
             }
         });
 
+        console.log('after spotify solitude',{data, status});
+
         if(!data || status != 200){
             console.log('Error no data');
             return error(req, res, 400, "Cannot get a refreshed token");
