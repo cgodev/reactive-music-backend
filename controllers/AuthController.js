@@ -131,7 +131,7 @@ async function refreshToken(req, res){
         if((user_role != "HOST_ROLE") && (room_id == null || uid == null)){
             return error(req, res, 400, "room_id and uid are required");
         }
-
+        console.log('before spotify solitude');
         const { data, status } = await axios({
             method: "POST",
             url: config.spotifyAccountsUrl+"/api/token",
@@ -159,7 +159,7 @@ async function refreshToken(req, res){
 
         return success(req, res, 200, "Token refreshed successfully", updatedRoom);         
     } catch (e) {
-        console.log('Error no data catch');
+        console.log('Error no data catch', e);
         return error(req, res, 400, "Cannot get a refreshed token");
     }
 }
