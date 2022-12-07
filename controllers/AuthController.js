@@ -5,7 +5,7 @@ const qs = require("qs");
 const bcrypt = require("bcryptjs")
 
 // Modules
-const { success, error } = require("../utils/responses/responses");
+const { success, error } = require("../utils/responses/Responses");
 const Room = require("../models/Room");
 
 // Config

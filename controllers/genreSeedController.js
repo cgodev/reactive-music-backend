@@ -1,6 +1,6 @@
 // Modules
 const GenreSeed = require("../models/GenreSeed");
-const { success, error } = require("../utils/responses/responses");
+const { success, error } = require("../utils/responses/Responses");
 
 
 

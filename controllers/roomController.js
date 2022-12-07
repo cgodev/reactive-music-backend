@@ -1,6 +1,6 @@
 // Modules
 const Room = require("../models/Room");
-const { success, error } = require("../utils/responses/responses");
+const { success, error } = require("../utils/responses/Responses");
 
 async function saveRoom(req, res) {
     if (!req.cookies.token) {
