@@ -10,7 +10,7 @@ const express = require("express");
 const { dbConnection } = require("./database/index");
 
 // Modules
-const authApi = require("./routes/authApi");
+const authApi = require("./routes/AuthApi");
 const rooms = require("./routes/rooms");
 const users = require("./routes/users");
 const credentials = require("./routes/userCredentials")
