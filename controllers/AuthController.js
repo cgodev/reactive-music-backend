@@ -99,7 +99,7 @@ async function getToken(req, res){
         });
 
         if(data || status == 200){
-            res.cookie("token", data.access_token, { domain: "vercel.app", httpOnly: false, maxAge: 1 * data.expires_in * 1000 });
+            res.cookie("token", data.access_token, { domain: ".webuidev.tech", httpOnly: false, maxAge: 1 * data.expires_in * 1000 });
             res.cookie("refresh_token", data.refresh_token);
         } else {
             return error(req, res, 400, "Cannot get a token");
