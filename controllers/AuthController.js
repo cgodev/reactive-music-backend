@@ -99,7 +99,7 @@ async function getToken(req, res){
         });
 
         if(data || status == 200){
-            res.cookie("token", data.access_token, { httpOnly: true, secure: true, domain: ".webuidev.tech", maxAge: 1 * data.expires_in * 1000 });
+            res.cookie("token", data.access_token, { domain: ".webuidev.tech", maxAge: 1 * data.expires_in * 1000 });
             res.cookie("refresh_token", data.refresh_token, { domain: ".webuidev.tech" });
         } else {
             return error(req, res, 400, "Cannot get a token");
