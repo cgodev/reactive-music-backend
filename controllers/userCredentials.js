@@ -20,7 +20,6 @@ const getCredential = async (req, res = response) => {
             credentials
         })
     } catch (error) {
-        console.log(error);
         return res.status(500).json({
             ok: false,
             msg: `Unhandled error, review your logs....`
@@ -32,8 +31,6 @@ const getCredential = async (req, res = response) => {
 const createCredentials = async (req, res = response) => {
 
     const { client_id, client_secret, user } = req.body;
-
-    console.log(user);
 
     //verify user exist
     const userDB = await User.findById(user);
@@ -67,7 +64,6 @@ const createCredentials = async (req, res = response) => {
 
 const updateCredentials = async (req, res = response) => {
     const uid = req.params.id;
-    console.log(uid);
     //Verify that credentials exists
     const credentials = await UserCredential.findById(uid)
     if (!credentials) {

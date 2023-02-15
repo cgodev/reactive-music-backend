@@ -52,7 +52,6 @@ async function login(req, res){
             token
         })
     } catch (error) {
-        console.log(error);
         return res.status(500).json({
             ok: true,
             msg: `Error validating user`
@@ -116,7 +115,6 @@ async function refreshToken(req, res){
     let updatedRoom = {};
     const { room_id, uid, user_role } = req.query;
     const refreshToken = req.cookies.refresh_token;
-    console.log(refreshToken);
     
     const body = {
         grant_type: "refresh_token",
@@ -125,14 +123,11 @@ async function refreshToken(req, res){
 
     try {
         const { client_id, client_secret } = await getCredentials(uid);
-        console.log({client_id, client_secret});
         const auth64 = Buffer.from(client_id + ":" + client_secret).toString("base64");
-        console.log(auth64);
 
         if((user_role != "HOST_ROLE") && (room_id == null || uid == null)){
             return error(req, res, 400, "room_id and uid are required");
         }
-        console.log('before spotify solitude');
         const { data, status } = await axios({
             method: "POST",
             url: config.spotifyAccountsUrl+"/api/token",
@@ -143,10 +138,7 @@ async function refreshToken(req, res){
             }
         });
 
-        console.log('after spotify solitude',{data, status});
-
         if(!data || status != 200){
-            console.log('Error no data');
             return error(req, res, 400, "Cannot get a refreshed token");
         }
 
@@ -162,7 +154,6 @@ async function refreshToken(req, res){
 
         return success(req, res, 200, "Token refreshed successfully", updatedRoom);         
     } catch (e) {
-        console.log('Error no data catch');
         return error(req, res, 400, "Cannot get a refreshed token");
     }
 }
@@ -174,7 +165,6 @@ async function getCredentials(uid){
         return credentials;
 
     } catch (error) {
-        console.log(error);
         return false;
     }
 }

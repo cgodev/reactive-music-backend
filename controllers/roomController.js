@@ -23,7 +23,6 @@ async function saveRoom(req, res) {
         return success(req, res, 201, "Room created successfully", room);
 
     } catch (e) {
-        console.log(e.message);
         return error(req, res, 400, "There was an error while creating the room, please try again", null);
     }
 }
@@ -95,7 +94,6 @@ async function updateRoom(req, res) {
         })
 
     } catch (error) {
-        //console.log(error);
         return res.status(500).json({
             ok: false,
             msg: `Error: ${error.message}`

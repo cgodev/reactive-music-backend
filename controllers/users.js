@@ -7,7 +7,6 @@ const { JWTGenerator } = require('../helpers/jwt');
 const getUsers = async (req, res) => {
 
     const desde = Number(req.query.desde) || 0;
-    console.log(desde);
 
     const [users, total] = await Promise.all([
         User
@@ -26,8 +25,6 @@ const getUsers = async (req, res) => {
 const createUser = async (req, res = response) => {
 
     const { email, password } = req.body;
-
-    console.log(`Data ${JSON.stringify(req.body)}`);
 
     try {
 
@@ -58,7 +55,6 @@ const createUser = async (req, res = response) => {
         })
 
     } catch (error) {
-        console.log(error);
         res.status(500).json({
             ok: false,
             msg: `Unhandled exception, review your logs...`
@@ -104,8 +100,6 @@ const updateUser = async (req, res = response) => {
             ...fields,
             email,
         }
-        
-        //console.log(`Fields to update ${JSON.stringify(fields)}`);
 
         const userUpdated = await User.findByIdAndUpdate(uid, fields, { new: true });
 
@@ -115,7 +109,6 @@ const updateUser = async (req, res = response) => {
         })
 
     } catch (error) {
-        console.log(error);
         return res.status(500).json({
             ok: false,
             msg: `Unhandled exception, review your logs...`
@@ -146,7 +139,6 @@ const deleteUser = async (req, res = response) => {
         })
 
     } catch (error) {
-        console.log(error);
         return res.status(500).json({
             ok: false,
             msg: `Unhandled exception, review your logs...`

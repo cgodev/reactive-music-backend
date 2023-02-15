@@ -16,7 +16,6 @@ const validateJWT = (req, res, next) => {
         req.body.user = uid;
         next();
     }catch(error){
-        console.log(error);
         return res.status(500).json({
             ok: false,
             message: `No valid token.`

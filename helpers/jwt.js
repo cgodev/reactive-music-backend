@@ -11,7 +11,6 @@ const JWTGenerator = ( uid ) => {
             expiresIn: '12h',
         }, (err, token) => {
             if(err){
-                console.log(err);
                 reject(`Can't generate token.`)
             }else{
                 resolve(token);
