@@ -12,6 +12,7 @@ const { dbConnection } = require("./database/index");
 // Modules
 import authApi from './routes/AuthApi'
 import rooms from './routes/rooms'
+import searchRouter from './routes/Search'
 import users from './routes/users'
 import credentials from './routes/userCredentials'
 import genresSeeds from './routes/genresSeeds'
@@ -49,6 +50,7 @@ rooms(app);
 genresSeeds(app);
 users(app);
 credentials(app);
+searchRouter(app);
 
 
 // App middlewares

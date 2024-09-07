@@ -1,0 +1,58 @@
+[{
+  "_id": {
+    "$oid": "6384d64fba5d7fd00fb90571"
+  },
+  "name": "Carlos Gomez",
+  "email": "carlosgomezrestrepo@outlook.com",
+  "password": "$2a$10$Xmy08VPl3ZiQ.oE9m.y31.Maj1YbVTK4cNDYyBMHgV7Ea4DifYaO2",
+  "role": "HOST_ROLE",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6359f19dbcb8dec3975fe2c5"
+  },
+  "name": "Admin Host",
+  "email": "admin@reactivemusic.com",
+  "password": "$2a$10$q13Hphg56vS6luLJjlKWrOpHk23/nhLTkAbpyvzqBtiJhDlvu5tF6",
+  "role": "HOST_ROLE"
+},
+{
+  "_id": {
+    "$oid": "63603093e69e8e38bb5e01c5"
+  },
+  "name": "Daniel",
+  "email": "daniel@gmail.com",
+  "password": "admin12345",
+  "role": "HOST_ROLE"
+},
+{
+  "_id": {
+    "$oid": "6384d68cba5d7fd00fb90576"
+  },
+  "name": "Carlos Gomez",
+  "email": "iamafriki@gmail.com",
+  "password": "$2a$10$ou/VqyerNYkCJBUNTrOjvOW63iQqBRhR3JmwK8r1Pg8HvswbhKbSO",
+  "role": "HOST_ROLE",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6373068fb2c6fed9618ee10d"
+  },
+  "name": "Super Admin",
+  "email": "superadmin@reactivemusic.com",
+  "password": "$2a$10$9wVfOR.cPmJbzWQm2TfGZue4jdd6vF1qUeJUe60BINxkx0SH6QOzW",
+  "role": "HOST_ROLE",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6374e3a4891f4439b87a8173"
+  },
+  "name": "adevkillyou",
+  "email": "adevkillyou@reactivemusic.com",
+  "password": "$2a$10$35cAJXzV2GwJIx0lj3DrhOBdee5aKxpW49tsYL6/dDHynvLZptV.O",
+  "role": "HOST_ROLE",
+  "__v": 0
+}]
