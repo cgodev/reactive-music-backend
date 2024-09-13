@@ -33,7 +33,7 @@ app.get('/', (req, res) => {
 // Middlewares usage
 app.use(cors({
     credentials: true,
-    origin: /* config.corsAllowOrigin */ "https://develop--playit-poc.netlify.app"
+    origin: /* config.corsAllowOrigin */ "https://playit-poc.netlify.app/"
 }));
 app.use(cookieParser());
 app.use(express.json());
