@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node-dev --watch ./src --respawn src/index.ts",
     "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node-dev --watch ./src --respawn src/index.ts",
     "serve": "node dist/index.js"
   },
   "keywords": [],
