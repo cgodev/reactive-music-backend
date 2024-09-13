@@ -1,20 +1,9 @@
 import { model, Schema } from "mongoose";
-import { Track } from "./Track";
 
-interface IRoom extends Document {
-    uid: string;
-    name: string;
-    accessUrl: string;
-    description: string;
-    tracks: Track[];
-}
-
-const trackShchema = new Schema<Track>({
-
+const trackShchema = new Schema({
+    name: {type: String, required: true},
+    artist: {type: String}, 
 })
-
-
-
 
 const RoomSchema = new Schema({
     uid: {
@@ -24,20 +13,18 @@ const RoomSchema = new Schema({
     },
     name: {
         type: String,
-        required: false
+        required: true
     },
     access_url: {
         type: String,
         required: true
     },
-    description: {
+    annotations: {
         type: String,
-        required: true
     },
     tracks: {
         type: [trackShchema],
     }
-
 });
 
 RoomSchema.method('toJSON', function(){

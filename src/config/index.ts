@@ -10,4 +10,7 @@ const config = {
     port: process.env.PORT
 }
 
+console.log(config.corsAllowOrigin);
+
+
 export default config;

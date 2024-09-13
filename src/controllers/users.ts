@@ -35,7 +35,7 @@ const createUser = async (req, res = response) => {
         if (userExist) {
             return res.status(400).json({
                 ok: false,
-                msg: `User already registered.`
+                message: `User already registered.`
             })
         }
 
@@ -56,7 +56,7 @@ const createUser = async (req, res = response) => {
     } catch (error) {
         res.status(500).json({
             ok: false,
-            msg: `Unhandled exception, review your logs...`
+            message: `Unhandled exception, review your logs...`
         })
     }
 
@@ -76,7 +76,7 @@ const updateUser = async (req, res = response) => {
         if (!userDB) {
             return res.status(303).json({
                 ok: false,
-                msg: `User not found.`
+                message: `User not found.`
             })
         }
 
@@ -110,7 +110,7 @@ const updateUser = async (req, res = response) => {
     } catch (error) {
         return res.status(500).json({
             ok: false,
-            msg: `Unhandled exception, review your logs...`
+            message: `Unhandled exception, review your logs...`
         })
     }
 }
@@ -126,7 +126,7 @@ const deleteUser = async (req, res = response) => {
         if (!userDB) {
             return res.status(303).json({
                 ok: false,
-                msg: `User not found`
+                message: `User not found`
             })
         }
 
@@ -140,7 +140,7 @@ const deleteUser = async (req, res = response) => {
     } catch (error) {
         return res.status(500).json({
             ok: false,
-            msg: `Unhandled exception, review your logs...`
+            message: `Unhandled exception, review your logs...`
         })
     }
 }
