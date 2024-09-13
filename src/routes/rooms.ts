@@ -2,7 +2,7 @@
 import express from "express";
 
 // Modules
-import { saveRoom, getRooms, getRoomById, updateRoom } from "../controllers/roomController";
+import { saveRoom, getRoomById, updateRoom, addSong, getRoom, clear } from "../controllers/roomController";
 import validateJWT from "../middlewares/jwt-validator";
 
 function rooms(app){
@@ -10,10 +10,12 @@ function rooms(app){
     app.use("/api/rooms", router);
 
     //rooms/get-all or index route "/"
-    router.get("/", getRooms);
+    router.get("/",validateJWT, getRoom);
     router.post("/save", validateJWT, saveRoom);
-    router.put("/:id", validateJWT, updateRoom);
+    router.put("/:id", updateRoom);
+    router.post("/:id", addSong);
     router.get("/:id", getRoomById);
+    router.get("/clear/:id", clear);
 }
 
 export default rooms;

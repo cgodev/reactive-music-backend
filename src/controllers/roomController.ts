@@ -3,24 +3,44 @@ import Room from "../models/Room";
 import { success, error } from "../utils/responses/Responses";
 
 async function saveRoom(req, res) {
-    
+
     try {
         const roomData = req.body;
-        console.log(roomData);
         const roomExists = await Room.findOne({ id_playlist: req.body.id_playlist });
 
         if (roomExists) {
-            return error(req, res, 400, new Error(), "Room already exists");
+            return error(req, res, 400, "Room already exists", null);
         }
 
         const room = new Room(roomData);
-        room.uid = req.body.user;
+        room.uid = req.body.user.uid;
         room.access_url = roomData.access_url + "/" + room._id;
         await room.save();
 
         return success(req, res, 201, "Room created successfully", room);
 
     } catch (e) {
+        console.log(e)
+        return error(req, res, 400, "There was an error while creating the room, please try again", null);
+    }
+}
+
+async function getRoom(req, res) {
+
+    console.log(req.body.user.uid);
+    
+
+    try {
+        const roomExists = await Room.findOne({ uid: req.body.user.uid });
+
+        if (!roomExists) {
+            return error(req, res, 400, "Not room yet", null);
+        }
+
+        return success(req, res, 201, "Room created successfully", roomExists);
+
+    } catch (e) {
+        console.log(e)
         return error(req, res, 400, "There was an error while creating the room, please try again", null);
     }
 }
@@ -37,7 +57,7 @@ async function getRooms(req, res) {
     } catch (error: any) {
         res.status(500).json({
             ok: true,
-            msg: error.message,
+            message: error.message,
             rooms: []
         })
     }
@@ -50,20 +70,34 @@ async function getRoomById(req, res) {
         const room = await Room.findById(id);
 
         if (!room) {
-            return res.status(404).json({
-                ok: false,
-                msg: `Room not found.`
-            })
+            return error(req, res, 404, "Playlist not found.", null);
         }
 
-        return res.status(200).json({
-            ok: true,
-            room
-        })
+        return success(req, res, 200, "ok", room)
     } catch (error: any) {
         return res.status(500).json({
             ok: false,
-            msg: `Error: ${error.message}`
+            message: `Error: ${error.message}`
+        })
+    }
+}
+
+async function clear(req, res) {
+    const id = req.params.id;
+
+    try {
+        const room = await Room.findById(id);
+
+        if (!room) {
+            return error(req, res, 404, "Playlist not found.", null);
+        }
+        const roomUpdated = await Room.findByIdAndUpdate(id, { tracks: [] }, { new: true, useFindAndModify: true });
+
+        return success(req, res, 200, "ok", roomUpdated)
+    } catch (error: any) {
+        return res.status(500).json({
+            ok: false,
+            message: `Error: ${error.message}`
         })
     }
 }
@@ -78,7 +112,7 @@ async function updateRoom(req, res) {
         if (!roomDB) {
             return res.status(303).json({
                 ok: false,
-                msg: `Room not found`
+                message: `Room not found`
             })
         }
 
@@ -94,14 +128,49 @@ async function updateRoom(req, res) {
     } catch (error: any) {
         return res.status(500).json({
             ok: false,
-            msg: `Error: ${error.message}`
+            message: `Error: ${error.message}`
         })
     }
 }
+
+async function addSong(req, res) {
+    const id = req.params.id;
+
+    try {
+
+        const roomDB = await Room.findById(id);
+
+        if (!roomDB) {
+            return res.status(303).json({
+                ok: false,
+                message: `Room not found`
+            })
+        }
+
+        const track = req.body;
+
+        const roomUpdated = await Room.findByIdAndUpdate(id, { $addToSet: { tracks: track } }, { new: true, useFindAndModify: true }).populate('tracks');
+
+        return res.status(200).json({
+            ok: true,
+            room: roomUpdated
+        })
+
+    } catch (error: any) {
+        return res.status(500).json({
+            ok: false,
+            message: `Error: ${error.message}`
+        })
+    }
+}
+
 
 export {
     getRooms,
     saveRoom,
     getRoomById,
-    updateRoom
+    updateRoom,
+    addSong,
+    getRoom,
+    clear
 }

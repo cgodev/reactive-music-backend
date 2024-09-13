@@ -29,7 +29,7 @@ async function login(req, res){
         if (!usuarioDB) {
             return res.status(404).json({
                 ok: false,
-                msg: `Not possible validate this user.`
+                message: `Not possible validate this user.`
             })
         }
 
@@ -38,7 +38,7 @@ async function login(req, res){
         if (!validPassword) {
             return res.status(400).json({
                 ok: false,
-                msg: `Invalid password`
+                message: `Invalid password`
             })
         }
 
@@ -54,7 +54,7 @@ async function login(req, res){
     } catch (error) {
         return res.status(500).json({
             ok: true,
-            msg: `Error validating user`
+            message: `Error validating user`
         })
     }
 

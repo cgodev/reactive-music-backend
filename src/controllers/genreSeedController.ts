@@ -12,7 +12,7 @@ async function getGenresSeeds(req, res) {
     } catch (error: any) {
         res.status(500).json({
             ok: true,
-            msg: error.message,
+            message: error.message,
             rooms: []
         })
     }

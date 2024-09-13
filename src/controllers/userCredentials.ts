@@ -11,7 +11,7 @@ const getCredential = async (req, res = response) => {
         if (!credentials) {
             return res.status(400).json({
                 ok: false,
-                msg: `credentials not found.`
+                message: `credentials not found.`
             })
         }
 
@@ -22,7 +22,7 @@ const getCredential = async (req, res = response) => {
     } catch (error) {
         return res.status(500).json({
             ok: false,
-            msg: `Unhandled error, review your logs....`
+            message: `Unhandled error, review your logs....`
         })
     }
 }
@@ -38,7 +38,7 @@ const createCredentials = async (req, res = response) => {
     if (!userDB) {
         return res.status(400).json({
             ok: false,
-            msg: `User not found.`
+            message: `User not found.`
         })
     }
 
@@ -49,7 +49,7 @@ const createCredentials = async (req, res = response) => {
     if (credentials) {
         return res.status(400).json({
             ok: false,
-            msg: `Already exist credentials for this user.`
+            message: `Already exist credentials for this user.`
         })
     }
 
@@ -69,7 +69,7 @@ const updateCredentials = async (req, res = response) => {
     if (!credentials) {
         return res.status(400).json({
             ok: false,
-            msg: `Credentials not found.`
+            message: `Credentials not found.`
         })
     }
 
