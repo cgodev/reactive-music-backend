@@ -11,13 +11,13 @@ const JWTGenerator = ( uid ) => {
         };
 
         if (!jwtSecret) {
-            reject(`Can't generate token.`);
-        } else {
+            reject(`Can't generate token cause cant find secret.`);
+        } else 
             jwt.sign( payload,jwtSecret, {
                 expiresIn: '12h',
             }, (err, token) => {
                 if(err){
-                    reject(`Can't generate token.`)
+                    reject(`Can't generate token by other things.${JSON.stringify(err)}`)
                 }else{
                     resolve(token);
                 }
