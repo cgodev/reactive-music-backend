@@ -27,7 +27,6 @@ const createUser = async (req, res = response) => {
 
     try {
 
-
         const userExist = await User.findOne({
             email
         });

@@ -2,7 +2,7 @@ import { Schema, model } from "mongoose";
 
 const UserSchema = new Schema({
 
-    name: {
+    username: {
         type: String,
         required: true,
     },
@@ -11,23 +11,10 @@ const UserSchema = new Schema({
         required: true,
         unique: true
     },
-    businessName: {
-        type: String,
-        required: true
-    },
     password: {
         type: String,
         required: true,
-    },
-    img: {
-        type: String
-    },
-    role: {
-        type: String,
-        required: true,
-        default: 'HOST_ROLE'
-    },
-
+    }
 });
 
 /* Customize response from internal mongoose schema in order to handle property names and realize operations. */

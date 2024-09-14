@@ -16,7 +16,7 @@ function users(app) {
     router.get('/', getUsers);
 
     router.post('/', [
-        check('name', 'Name is required').not().isEmpty(),
+        check('username', 'Name is required').not().isEmpty(),
         check('password', 'Password is required').not().isEmpty(),
         check('email', 'Email is required').isEmail(),
         validateFields
@@ -24,7 +24,7 @@ function users(app) {
 
     router.put('/:id', [
         validateJWT,
-        check('name', 'Name is required').not().isEmpty(),
+        check('username', 'Name is required').not().isEmpty(),
         check('role', 'Role is required').not().isEmpty(),
         check('email', 'Email is required').isEmail(),
         // validateFields,

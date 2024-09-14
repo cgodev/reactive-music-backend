@@ -9,9 +9,6 @@ async function search(req, res) {
     const result = await youtubesearchapi.GetListByKeyword(criteria, false, 10, [{ type: "video" }])
 
 
-    console.log(result);
-    
-
     if (!result) {
         return error(req, res, 404, "Tracks not found", []);
     }

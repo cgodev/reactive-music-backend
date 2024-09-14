@@ -155,7 +155,6 @@ async function refreshToken(req, res){
 
         return success(req, res, 200, "Token refreshed successfully", updatedRoom);         
     } catch (e) {
-        console.log(e);
         return error(req, res, 400, new Error(), "Cannot get a refreshed token");
     }
 }
