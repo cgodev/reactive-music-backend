@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-const jwtSecret = process.env.JWT_SECRET;
+const jwtSecret = /* process.env.JWT_SECRET */ 'YULkerKiv2020_LOSPRikwDinamOV';
 
 const validateJWT = (req, res, next) => {
     /* Read token */
