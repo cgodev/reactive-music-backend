@@ -51,10 +51,10 @@ async function login(req, res){
             ok: true,
             token
         })
-    } catch (error) {
+    } catch (error: any) {
         return res.status(500).json({
             ok: true,
-            message: `Error validating user`
+            message: `Error validating user ${JSON.stringify(error)}`
         })
     }
 
